@@ -9,7 +9,7 @@
 
 using namespace std;
 
-const string HOST = "coding.debuntu.org";
+const string HOST = "github.com";
 const string PAGE= "/";
 const int PORT = 80;
 const string USERAGENT = "Meanie 1.1" ;

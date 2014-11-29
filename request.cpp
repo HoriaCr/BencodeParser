@@ -16,7 +16,7 @@ const string USERAGENT = "Meanie 1.1" ;
  
 void usage() {
   fprintf(stderr, "USAGE: htmlget host [page]\n\
-    \thost: the website hostname. ex: coding.debuntu.org\n\
+    \thost: the website hostname. ex: github.com\n\
    \tpage: the page to retrieve. ex: index.html, default: /\n");
 }
  

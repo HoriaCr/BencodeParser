@@ -11,10 +11,42 @@ class Integer : public BencodeType {
         long long data;
 
     public: 
+        
+        Integer();
+
+        ~Integer();
+
+        Integer(const Integer&);
+
+        Integer& operator = (const Integer&);
 
         bool parse(char*,int&,const int&);
-};
 
+        BencodeType *clone();
+};
+    
+Integer::Integer() {
+    data = 0;
+}
+
+Integer::~Integer() { 
+
+}
+
+Integer::Integer(const Integer& other) {
+    data = other.data;
+}
+
+
+Integer& Integer::operator = (const Integer& other) {
+    if (&other == this) {
+        return *this;
+    }
+
+    data = other.data;
+
+    return *this;
+}
 
 bool Integer::parse(char *buffer,int &index, const int& length) {
     int sgn = 1;
@@ -38,3 +70,7 @@ bool Integer::parse(char *buffer,int &index, const int& length) {
 
     return true;
 }
+
+BencodeType* Integer::clone() {
+    return new Integer(*this);
+}   

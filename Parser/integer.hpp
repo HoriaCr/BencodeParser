@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-
+#include <iostream>
 #include "bencodetype.hpp"
 
 #pragma once
@@ -19,10 +19,14 @@ class Integer : public BencodeType {
         Integer(const Integer&);
 
         Integer& operator = (const Integer&);
+        
+        bool operator == (const long long&) const;
 
         bool parse(char*,int&,const int&);
 
         BencodeType *clone();
+
+        long long getValue() const;
 };
     
 Integer::Integer() {
@@ -48,23 +52,43 @@ Integer& Integer::operator = (const Integer& other) {
     return *this;
 }
 
+bool Integer::operator == (const long long& value) const {
+    return data == value;
+}
+
 bool Integer::parse(char *buffer,int &index, const int& length) {
+    if (buffer[index] != 'i') {
+        return false;
+    }
+    index++;
+    if (index == length) {
+        return false;
+    }
     int sgn = 1;
     if (buffer[index] == '-') {
         sgn = -1;
         index++;
+        // not allowed
+        if (index < length && buffer[index] == '0') {
+            return false;
+        }
     }
     
+    if (index >= length || !isdigit(buffer[index])) {
+        return false;
+    }
+    
+    // not sure if zeroes allowed in front of the number
     data = 0;
-
     while (index < length && isdigit(buffer[index])) {
         data = data * 10 + (buffer[index++] - '0');
     }
 
-    // invalid bencode format
-    if (index == length) {
+    // check for invalid bencode format
+    if (index >= length || buffer[index] != 'e') {
         return false;
     }
+    index++;
     
     data *= sgn;
 
@@ -73,4 +97,8 @@ bool Integer::parse(char *buffer,int &index, const int& length) {
 
 BencodeType* Integer::clone() {
     return new Integer(*this);
+}   
+
+long long Integer::getValue() const {
+    return data;
 }   

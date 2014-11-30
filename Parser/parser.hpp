@@ -17,6 +17,7 @@
 
 // class used for parsing bencoded files
 class Parser { 
+    
     int length;
     char *buffer;
 
@@ -50,13 +51,6 @@ Parser::~Parser() {
     delete[] buffer;
 }
  
-void Parser::parse() {
-    int index = 0;
-    std::vector< BencodeType* > data;
-    while (index < length) {
-        //data.push_back(parseElement(buffer, index, length));
-    }
-}
 
 Dictionary* parseDictionary(char*,int&, const int&);
 List* parseList(char*,int&,const int&);
@@ -82,6 +76,15 @@ BencodeType *parseElement(char *buffer,int &index, const int& length) {
     }   
     
     return ret;
+}
+
+
+void Parser::parse() {
+    int index = 0;
+    std::vector< BencodeType* > data;
+    while (index < length) {
+        data.push_back(parseElement(buffer, index, length));
+    }
 }
 
 Dictionary *parseDictionary(char *buffer,int &index, const int& length)  {

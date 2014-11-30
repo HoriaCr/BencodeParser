@@ -20,9 +20,13 @@ class BencodeType {
             return true;    
         }
 
-        virtual ~BencodeType();
+        virtual ~BencodeType() {
+
+        }
         
-        virtual BencodeType* clone();
+        virtual BencodeType* clone() {
+            return NULL;
+        }
 };
 
 

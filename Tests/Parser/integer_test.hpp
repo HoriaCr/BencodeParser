@@ -1,16 +1,13 @@
 #include "../../Parser/integer.hpp"
-#include <iostream>
-#include <functional>
-#include <cstring>
+#include "test.hpp"
 
-class IntegerTester {
+class IntegerTest : public Test {
     
         Integer value;
-        std::vector< std::function<bool()> > test;
-
+    
     public:
 
-        IntegerTester() {
+        IntegerTest() {
             test = {
                 [&]() -> bool {
                     return decode("i42e") == std::make_pair(true, 42LL);
@@ -62,22 +59,8 @@ class IntegerTester {
             return std::make_pair(ret, value.getValue());
         }
 
-        int runTests() {
-
-           int testsPassed = 0;
-            for (size_t i = 0; i < test.size(); i++) {
-                if (!test[i]()) {
-                    std::cerr << "Failed Integer Test # " << i << "\n";
-                } else {
-                    testsPassed++;
-                }
-            }
-
-            return testsPassed;
-        }
-
-        bool runTest(const unsigned int& index) {
-            return (index < test.size() && test[index]());
+        std::string getType() {
+            return "Integer";
         }
 };
 

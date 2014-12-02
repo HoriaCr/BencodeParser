@@ -21,6 +21,10 @@ class ByteString : public BencodeType {
         ByteString(const ByteString&);
 
         ByteString& operator = (const ByteString&);
+        
+        bool operator == (const ByteString&) const;
+
+        bool operator != (const ByteString&) const;
 
         int parseLength(char*,int&,const int&);
       

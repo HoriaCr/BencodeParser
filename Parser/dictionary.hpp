@@ -25,8 +25,12 @@ class Dictionary : public BencodeType {
 
        BencodeType *query(const std::string&) const;
 
-       Dictionary& operator = (const Dictionary& other);
+       Dictionary& operator = (const Dictionary&);
 
+       bool operator == (const Dictionary&) const;
+        
+       bool operator != (const Dictionary&) const;
+       
        BencodeType *clone();
 };
 

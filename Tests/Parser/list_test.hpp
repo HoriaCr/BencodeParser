@@ -5,7 +5,7 @@ class ListTest : public Test {
     List value;
 
     public:
-    /* 
+     
     std::pair<bool, std::string> decode(const std::string& encoded) {
         char *buffer  = new char[encoded.size()];
         int index = 0;
@@ -18,26 +18,25 @@ class ListTest : public Test {
     ListTest() {
         test = {
             [&]() -> bool {
-                return decode("5:berea") == std::make_pair(true,std::string("berea"));
+                return decode("l5:bereae") == std::make_pair(true,std::string("berea"));
             },
             [&]() -> bool {
-                return decode("1:k") == std::make_pair(true,std::string("k"));
-            },
-
-            [&]() -> bool {
-                return decode("3:fun") == std::make_pair(true,std::string("fun"));
+                return decode("li32ee") == std::make_pair(true,std::string("k"));
             },
 
             [&]() -> bool {
-                return decode("3fun").first == false;
+                return decode("l3:vali0ee") == std::make_pair(true,std::string("fun"));
+            },
+
+            [&]() -> bool {
+                return decode("le").first == false;
             },
             [&]() -> bool {
-                return decode("5:fun").first == false;
+                return decode("el").first == false;
             }
  
         };
     }
-    */
 
     std::string getType() {
         return "List";

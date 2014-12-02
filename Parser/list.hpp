@@ -15,11 +15,17 @@ class List : public BencodeType  {
     public: 
         List();
 
+        List(const std::vector<BencodeType*>&);
+
         ~List();
 
         List(const List&);
 
         List& operator = (const List&);
+
+        bool operator == (const List&) const;
+        
+        bool operator != (const List&) const;
 
         bool parse(char*,int&,const int&);
 

@@ -38,6 +38,24 @@ ByteString& ByteString::operator = (const ByteString& other) {
     return *this;
 }
 
+bool ByteString::operator == (const ByteString& other) const {
+    if (strLength != other.strLength) {
+        return false;
+    }
+
+    for (int i = 0; i < strLength; i++) {
+        if (data[i] != other.data[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool ByteString::operator != (const ByteString& other) const {
+    return !(*this == other); 
+}
+
 int ByteString::parseLength(char *buffer,int &index, const int& length) {
     int strLen = 0;
     int digits = 0;

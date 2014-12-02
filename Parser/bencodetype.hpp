@@ -23,6 +23,7 @@ class BencodeType {
         virtual ~BencodeType();
         
         virtual BencodeType* clone();
+    
 };
 
 

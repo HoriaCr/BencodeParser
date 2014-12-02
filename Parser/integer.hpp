@@ -20,6 +20,10 @@ class Integer : public BencodeType {
         Integer& operator = (const Integer&);
         
         bool operator == (const long long&) const;
+        
+        bool operator == (const Integer&) const;
+
+        bool operator != (const Integer&) const;
 
         bool parse(char*,int&,const int&);
 

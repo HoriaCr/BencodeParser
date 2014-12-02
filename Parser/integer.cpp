@@ -32,6 +32,16 @@ bool Integer::operator == (const long long& value) const {
     return data == value;
 }
 
+bool Integer::operator == (const Integer& other) const { 
+    return data == other.data;
+}
+
+bool Integer::operator != (const Integer& other) const { 
+    return !(*this == other);
+}
+
+
+
 bool Integer::parse(char *buffer,int &index, const int& length) {
     if (buffer[index] != 'i') {
         return false;

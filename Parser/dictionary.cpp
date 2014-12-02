@@ -91,6 +91,24 @@ Dictionary& Dictionary::operator = (const Dictionary& other) {
     return *this;
 }
 
+bool Dictionary::operator == (const Dictionary& other) const {
+    if (data.size() != other.data.size()) {
+        return false;
+    }
+
+    // there may be a better solution than using typeid
+    for (size_t i = 0; i < data.size(); i++) {
+        if (typeid(data[i]) != typeid(other.data[i]) || data[i] != other.data[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Dictionary::operator != (const Dictionary& other) const {
+    return !(*this == other);
+}
+
 BencodeType* Dictionary::clone() {
     Dictionary *ret = new Dictionary();
     ret->data.resize(data.size());

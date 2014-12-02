@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <exception>
+#include <typeinfo>
 
 #include "bencodetype.hpp"
 #include "list.hpp"

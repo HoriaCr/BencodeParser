@@ -9,6 +9,13 @@ List::List() {
 
 }
 
+List::List(const std::vector<BencodeType*>& data_) {
+    data.resize(data_.size());
+    for (size_t i = 0; i < data.size(); i++) {
+        data[i] = data_[i]->clone();
+    }
+}
+
 List::~List() {
     
     for (size_t i = 0; i < data.size(); i++) {
@@ -38,6 +45,22 @@ List& List::operator = (const List& other) {
     }
 
     return *this;
+}
+
+bool List::operator == (const List& other) const {
+    if (data.size() != other.data.size()) {
+        return false;
+    }
+    for (size_t i = 0; i < data.size(); i++) {
+        if (typeid(data[i]) != typeid(other.data[i]) || data[i] != other.data[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool List::operator != (const List& other) const {
+    return !(*this == other);
 }
 
 bool List::parse(char *buffer,int &index, const int& length)  {

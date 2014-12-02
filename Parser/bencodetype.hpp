@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 
-
+#include <iostream>
 #include <string>
 #include <vector>
 #include <cstring>
@@ -15,18 +15,14 @@
 class BencodeType {
     
     public:
+    
+        BencodeType();
 
-        virtual bool parse(char*,int&, const int&) {
-            return true;    
-        }
+        virtual bool parse(char*,int&, const int&);
 
-        virtual ~BencodeType() {
-
-        }
+        virtual ~BencodeType();
         
-        virtual BencodeType* clone() {
-            return NULL;
-        }
+        virtual BencodeType* clone();
 };
 
 

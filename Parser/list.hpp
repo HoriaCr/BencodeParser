@@ -2,10 +2,11 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+#ifndef LIST_HPP_
+#define LIST_HPP_
 
+#include "parser.hpp"
 
-#include "integer.hpp"
-#include "bytestring.hpp"
 
 class List : public BencodeType  {
         
@@ -20,53 +21,13 @@ class List : public BencodeType  {
 
         List& operator = (const List&);
 
+        bool parse(char*,int&,const int&);
+
         void push(BencodeType*);
 
         BencodeType *clone();
 };
 
 
-List::List() {
 
-}
-
-List::~List() {
-    
-    for (size_t i = 0; i < data.size(); i++) {
-        delete data[i];    
-    }
-
-    data.clear();
-}
-
-List::List(const List& other) {
-    data.resize(other.data.size());
-    for (size_t i = 0; i < data.size(); i++) {
-        data[i] = other.data[i]->clone();
-    }
-}
-
-List& List::operator = (const List& other) {
-    if (&other == this) {
-        return *this;
-    }
-    
-    this->~List();
-    
-    data.resize(other.data.size());
-    for (size_t i = 0; i < data.size(); i++) {
-        data[i] = other.data[i]->clone();
-    }
-
-    return *this;
-}
-    
-
-void List::push(BencodeType *value) {
-    data.push_back(value);
-}
-
-
-BencodeType* List::clone() {
-    return new List(*this);
-}
+#endif //LIST_HPP_

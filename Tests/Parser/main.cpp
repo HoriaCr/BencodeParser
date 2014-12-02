@@ -4,9 +4,9 @@
 
 int main() {
     IntegerTest test1; 
-    int testsPassed = test1.runTests();
-    std::cout << testsPassed << "\n";
+    std::cout <<  test1.runTests() << "\n";
     BytestringTest test2;
     std::cout <<  test2.runTests() << "\n";
+
     return 0;
 }

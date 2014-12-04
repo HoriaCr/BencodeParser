@@ -47,12 +47,19 @@ List& List::operator = (const List& other) {
     return *this;
 }
 
+
+bool List::isEqual(const BencodeType& other) const { 
+    const List* list = dynamic_cast<const List*>(&other);
+    return (list != NULL && *this == *list);
+}
+
 bool List::operator == (const List& other) const {
     if (data.size() != other.data.size()) {
         return false;
     }
+
     for (size_t i = 0; i < data.size(); i++) {
-        if (typeid(data[i]) != typeid(other.data[i]) || data[i] != other.data[i]) {
+        if (*data[i] != *other.data[i]) {
             return false;
         }
     }

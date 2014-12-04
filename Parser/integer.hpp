@@ -21,8 +21,10 @@ class Integer : public BencodeType {
         
         bool operator == (const long long&) const;
         
-        bool operator == (const Integer&) const;
+        bool isEqual(const BencodeType&) const;
 
+        bool operator == (const Integer&) const;
+        
         bool operator != (const Integer&) const;
 
         bool parse(char*,int&,const int&);

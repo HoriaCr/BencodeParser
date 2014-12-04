@@ -23,6 +23,8 @@ class List : public BencodeType  {
 
         List& operator = (const List&);
 
+        bool isEqual(const BencodeType&) const;
+        
         bool operator == (const List&) const;
         
         bool operator != (const List&) const;

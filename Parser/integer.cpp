@@ -32,15 +32,14 @@ bool Integer::operator == (const long long& value) const {
     return data == value;
 }
 
+bool Integer::isEqual(const BencodeType& other) const { 
+    const Integer* integer = dynamic_cast<const Integer*>(&other);
+    return (integer != NULL && *this == *integer);
+}
+
 bool Integer::operator == (const Integer& other) const { 
     return data == other.data;
 }
-
-bool Integer::operator != (const Integer& other) const { 
-    return !(*this == other);
-}
-
-
 
 bool Integer::parse(char *buffer,int &index, const int& length) {
     if (buffer[index] != 'i') {

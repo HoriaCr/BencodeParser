@@ -27,6 +27,8 @@ class Dictionary : public BencodeType {
 
        Dictionary& operator = (const Dictionary&);
 
+       bool isEqual(const BencodeType&) const;
+       
        bool operator == (const Dictionary&) const;
         
        bool operator != (const Dictionary&) const;

@@ -38,6 +38,12 @@ ByteString& ByteString::operator = (const ByteString& other) {
     return *this;
 }
 
+
+bool ByteString::isEqual (const BencodeType& other) const { 
+    const ByteString* bytestring = dynamic_cast<const ByteString*>(&other);
+    return (bytestring != NULL && *this == *bytestring);
+}
+
 bool ByteString::operator == (const ByteString& other) const {
     if (strLength != other.strLength) {
         return false;
@@ -52,9 +58,6 @@ bool ByteString::operator == (const ByteString& other) const {
     return true;
 }
 
-bool ByteString::operator != (const ByteString& other) const {
-    return !(*this == other); 
-}
 
 int ByteString::parseLength(char *buffer,int &index, const int& length) {
     int strLen = 0;

@@ -91,14 +91,19 @@ Dictionary& Dictionary::operator = (const Dictionary& other) {
     return *this;
 }
 
+
+bool Dictionary::isEqual(const BencodeType& other) const { 
+    const Dictionary* dictionary = dynamic_cast<const Dictionary*>(&other);
+    return (dictionary != NULL && *this == *dictionary);
+}
+
 bool Dictionary::operator == (const Dictionary& other) const {
     if (data.size() != other.data.size()) {
         return false;
     }
 
-    // there may be a better solution than using typeid
     for (size_t i = 0; i < data.size(); i++) {
-        if (typeid(data[i]) != typeid(other.data[i]) || data[i] != other.data[i]) {
+        if (data[i].first == other.data[i].first && *data[i].second != *other.data[i].second) {
             return false;
         }
     }

@@ -21,7 +21,9 @@ class ByteString : public BencodeType {
         ByteString(const ByteString&);
 
         ByteString& operator = (const ByteString&);
-        
+ 
+        bool isEqual(const BencodeType&) const;
+
         bool operator == (const ByteString&) const;
 
         bool operator != (const ByteString&) const;

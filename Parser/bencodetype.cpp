@@ -22,3 +22,13 @@ BencodeType* BencodeType::clone() {
     return NULL;
 }
 
+bool BencodeType::isEqual(const BencodeType& other) const {
+    return true;
+}
+
+bool BencodeType::operator != (const BencodeType& other) const {
+    return !(this->isEqual(other));
+}
+
+
+

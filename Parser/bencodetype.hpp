@@ -24,6 +24,11 @@ class BencodeType {
         
         virtual BencodeType* clone();
     
+        // compare two items, dynamic_cast is used to achive double dispatch, it may be improved
+        virtual bool isEqual (const BencodeType&) const;
+
+        bool operator != (const BencodeType&) const;
+        
 };
 
 

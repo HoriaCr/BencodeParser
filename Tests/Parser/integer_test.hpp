@@ -8,60 +8,47 @@
 
 class IntegerTest : public Test {
     
-        Integer value;
-    
     public:
 
         IntegerTest() {
             test = {
                 [&]() -> bool {
-                    return decode("i42e") == std::make_pair(true, 42LL);
+                    return decode<Integer>("i42e") == std::make_pair(true, Integer(42LL));
                 },
                 [&]() -> bool {
-                   return decode("i0e") == std::make_pair(true, 0LL);   
+                   return decode<Integer>("i0e") == std::make_pair(true, Integer(0LL));   
                 },
                 [&]() -> bool {
-                   return decode("i-5e") == std::make_pair(true, -5LL);
+                   return decode<Integer>("i-5e") == std::make_pair(true, Integer(-5LL));
                 },
                 [&]() -> bool {
-                   return decode("i-5").first == false;
+                   return decode<Integer>("i-5").first == false;
                 },
                 [&]() -> bool {
-                   return decode("ie").first == false;
+                   return decode<Integer>("ie").first == false;
                 },
                 [&]() -> bool {
-                   return decode("ie").first == false;
+                   return decode<Integer>("ie").first == false;
                 },
                 [&]() -> bool {
-                   return decode("le").first == false;
+                   return decode<Integer>("le").first == false;
                 },
                 [&]() -> bool {
-                   return decode("l--e").first == false;
+                   return decode<Integer>("l--e").first == false;
                 },
                 [&]() -> bool {
-                   return decode("l-0e").first == false;
+                   return decode<Integer>("l-0e").first == false;
                 },
                 [&]() -> bool {
-                   return decode("i100e") == std::make_pair(true, 100LL);   
+                   return decode<Integer>("i100e") == std::make_pair(true, Integer(100LL));   
                 },
                 [&]() -> bool {
-                   return decode("i-369e") == std::make_pair(true, -369LL);
+                   return decode<Integer>("i-369e") == std::make_pair(true, Integer(-369LL));
                 },
                 [&]() -> bool {
-                   return decode("-5").first == false;
+                   return decode<Integer>("-5").first == false;
                 }
             };
-
-         
-        }
-
-        std::pair<bool, long long> decode(const std::string& encoded) {
-            char *buffer  = new char[encoded.size()];
-            int index = 0;
-            int length = static_cast<int>(encoded.size());
-            memcpy(buffer, encoded.c_str(), encoded.size());
-            bool ret = value.parse(buffer, index, length);
-            return std::make_pair(ret, value.getValue());
         }
 
         std::string getType() {

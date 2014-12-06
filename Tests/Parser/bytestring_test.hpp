@@ -7,44 +7,34 @@
 #include "test.hpp"
 
 class BytestringTest : public Test {
-    ByteString value;
 
     public:
     
-    std::pair<bool, std::string> decode(const std::string& encoded) {
-        char *buffer  = new char[encoded.size()];
-        int index = 0;
-        int length = static_cast<int>(encoded.size());
-        memcpy(buffer, encoded.c_str(), encoded.size());
-        bool ret = value.parse(buffer, index, length);
-        return std::make_pair(ret, value.toString());    
-    }
+        BytestringTest() {
+            test = {
+                [&]() -> bool {
+                    return decode<ByteString>("5:berea") == std::make_pair(true,ByteString(std::string("berea")));
+                },
+                [&]() -> bool {
+                    return decode<ByteString>("1:k") == std::make_pair(true,ByteString(std::string("k")));
+                },
 
-    BytestringTest() {
-        test = {
-            [&]() -> bool {
-                return decode("5:berea") == std::make_pair(true,std::string("berea"));
-            },
-            [&]() -> bool {
-                return decode("1:k") == std::make_pair(true,std::string("k"));
-            },
+                [&]() -> bool {
+                    return decode<ByteString>("3:fun") == std::make_pair(true,ByteString(std::string("fun")));
+                },
 
-            [&]() -> bool {
-                return decode("3:fun") == std::make_pair(true,std::string("fun"));
-            },
+                [&]() -> bool {
+                    return decode<ByteString>("3fun").first == false;
+                },
+                [&]() -> bool {
+                    return decode<ByteString>("5:fun").first == false;
+                }
+     
+            };
+        }
 
-            [&]() -> bool {
-                return decode("3fun").first == false;
-            },
-            [&]() -> bool {
-                return decode("5:fun").first == false;
-            }
- 
-        };
-    }
-
-    std::string getType() {
-        return "ByteString";
-    }
+        std::string getType() {
+            return "ByteString";
+        }
 
 };

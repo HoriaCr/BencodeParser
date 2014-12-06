@@ -14,7 +14,18 @@ class Test {
 
     protected:
         std::vector< std::function<bool()> > test;
-    
+   
+        template<class DataType> 
+        std::pair<bool,DataType> decode(const std::string& encoded) {
+            DataType value;
+            char *buffer  = new char[encoded.size()];
+            int index = 0;
+            int length = static_cast<int>(encoded.size());
+            memcpy(buffer, encoded.c_str(), encoded.size()); 
+            bool ret = value.parse(buffer, index, length); 
+            return std::make_pair(ret, value);    
+        }
+ 
     public:
 
         virtual std::string getType() {

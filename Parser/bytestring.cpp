@@ -22,6 +22,14 @@ ByteString::ByteString(const ByteString& other) {
     memcpy(data, other.data, strLength);
 }
 
+ByteString::ByteString(const std::string& other) {
+    strLength = static_cast<int>(other.size());
+    data = new char[strLength];
+    memcpy(data, other.c_str(), strLength);
+}
+
+
+
 ByteString& ByteString::operator = (const ByteString& other) {
     if (&other == this) {
         return *this;

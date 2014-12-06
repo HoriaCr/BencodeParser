@@ -17,6 +17,10 @@ Integer::Integer(const Integer& other) {
     data = other.data;
 }
 
+Integer::Integer(const int& other) {
+    data = static_cast<long long>(other);
+}
+
 
 Integer& Integer::operator = (const Integer& other) {
     if (&other == this) {

@@ -8,6 +8,14 @@ Dictionary::Dictionary() {
 
 }
 
+Dictionary::Dictionary(const std::vector<std::pair<std::string,BencodeType*> >& other) {
+    data.resize(other.size());
+    for (size_t i = 0; i < other.size(); i++) {
+        data[i].first = other[i].first;
+        data[i].second = other[i].second->clone();
+    }
+}
+
 void Dictionary::insert(const std::string& key, BencodeType* value) {
     data.push_back(make_pair(key, value));
 }
@@ -44,9 +52,14 @@ Dictionary::~Dictionary() {
 }
 
 bool Dictionary::parse(char *buffer,int &index, const int& length)  {
-
+    if (!data.empty()) {
+        for (size_t i = 0; i < data.size(); i++) {
+            delete data[i].second;
+        }
+        data.clear();
+    }
     if (buffer[index] != 'd') {
-        std::cerr << "Format Error\n"; 
+        //std::cerr << "Format Error\n"; 
         return false;
     }
     
@@ -55,20 +68,22 @@ bool Dictionary::parse(char *buffer,int &index, const int& length)  {
     while (index < length && buffer[index] != 'e') {
         ByteString key;
         if (!key.parse(buffer, index, length)) {
-            break;
+            return false;
         }
 
         BencodeType *value = Parser::parseElement(buffer, index, length);
         if (value != NULL) {
             insert(key.toString(), value);
         } else {
-            break;
+            return false;
         }
     }
 
     if (index >= length || buffer[index] != 'e') {
         return false;
     }
+
+
     index++;
     return true;
 }

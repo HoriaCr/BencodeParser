@@ -10,40 +10,52 @@ class DictionaryTest : public Test {
     Dictionary value;
 
     public:
-    /* 
-    std::pair<bool, std::string> decode(const std::string& encoded) {
+     
+    std::pair<bool, Dictionary> decode(const std::string& encoded) {
         char *buffer  = new char[encoded.size()];
         int index = 0;
         int length = static_cast<int>(encoded.size());
-        //memcpy(buffer, encoded.c_str(), encoded.size());
-        //bool ret = value.parse(buffer, index, length);
-        return std::make_pair(true,std::string("fff"));    
+        memcpy(buffer, encoded.c_str(), encoded.size());
+        bool ret = value.parse(buffer, index, length);
+        return std::make_pair(ret, value);    
     }
     
     
     DictionaryTest() {
         test = {
             [&]() -> bool {
-                return decode("5:berea") == std::make_pair(true,std::string("berea"));
+                BencodeType* v = new Integer(3);
+                BencodeType* l = new List(std::vector<BencodeType*>{v});
+                Dictionary d(std::vector< std::pair<std::string, BencodeType*> > {
+                    std::make_pair(std::string("berea"), l)
+                });
+                return decode("d5:bereali3eee") == std::make_pair(true, d);
             },
             [&]() -> bool {
-                return decode("1:k") == std::make_pair(true,std::string("k"));
+                BencodeType* v = new Integer(30);
+                Dictionary d(std::vector< std::pair<std::string, BencodeType*> > {
+                    std::make_pair(std::string("k"), v)
+                });
+                return decode("d1:ki30ee") == std::make_pair(true, d);
             },
 
             [&]() -> bool {
-                return decode("3:fun") == std::make_pair(true,std::string("fun"));
+                BencodeType* v = new ByteString("b");
+                Dictionary d(std::vector< std::pair<std::string, BencodeType*> > {
+                    std::make_pair(std::string("fun"), v)
+                });
+                return decode("d3:fun1:be") == std::make_pair(true,d);
             },
-
             [&]() -> bool {
-                return decode("3fun").first == false;
+                return decode("de").first == true;
             },
             [&]() -> bool {
-                return decode("5:fun").first == false;
+                return decode("ed").first == false;
             }
  
         };
     }
-    */
+    
     std::string getType() {
         return "Dictionary";
     }

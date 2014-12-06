@@ -17,9 +17,8 @@ List::List(const std::vector<BencodeType*>& data_) {
 }
 
 List::~List() {
-    
     for (size_t i = 0; i < data.size(); i++) {
-        delete data[i];    
+            delete data[i]; 
     }
 
     data.clear();
@@ -37,8 +36,10 @@ List& List::operator = (const List& other) {
         return *this;
     }
     
-    this->~List();
-    
+    for (size_t i = 0; i < data.size(); i++) {
+            delete data[i]; 
+    }
+   
     data.resize(other.data.size());
     for (size_t i = 0; i < data.size(); i++) {
         data[i] = other.data[i]->clone();
@@ -71,8 +72,15 @@ bool List::operator != (const List& other) const {
 }
 
 bool List::parse(char *buffer,int &index, const int& length)  {
+    if (!data.empty()) {
+        for (size_t i = 0; i < data.size(); i++) {
+                delete data[i]; 
+        }   
+        data.clear();
+    }
+
     if (buffer[index] != 'l') {
-        std::cerr << "Format Error\n"; 
+        //std::cerr << "Format Error\n"; 
         return false;
     }
     

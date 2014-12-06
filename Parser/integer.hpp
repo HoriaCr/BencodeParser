@@ -17,6 +17,8 @@ class Integer : public BencodeType {
 
         Integer(const Integer&);
 
+        Integer(const int&);
+
         Integer& operator = (const Integer&);
         
         bool operator == (const long long&) const;

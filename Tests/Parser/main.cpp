@@ -6,12 +6,22 @@
 #include <iostream>
 #include "integer_test.hpp"
 #include "bytestring_test.hpp"
+#include "list_test.hpp"
+#include "dictionary_test.hpp"
 
 int main() {
-    IntegerTest test1; 
-    std::cout <<  test1.runTests() << "\n";
-    BytestringTest test2;
-    std::cout <<  test2.runTests() << "\n";
+    std::vector< Test*> tests = {
+        new IntegerTest(), new BytestringTest(), new ListTest(),  new DictionaryTest() 
+    };
 
+    bool testsFailed = false;
+    for (auto& test : tests) {
+        if (test->runTests() != test->size()) {
+            testsFailed = false;
+        }
+    }
+    if (testsFailed == false) {
+        std::cout << "Tests Passed\n";
+    }
     return 0;
 }

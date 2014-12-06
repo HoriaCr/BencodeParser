@@ -20,6 +20,8 @@ class ByteString : public BencodeType {
 
         ByteString(const ByteString&);
 
+        ByteString(const std::string&);
+
         ByteString& operator = (const ByteString&);
  
         bool isEqual(const BencodeType&) const;

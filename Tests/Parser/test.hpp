@@ -21,6 +21,10 @@ class Test {
             return "Generic";
         }
 
+        unsigned int size() const {
+            return test.size();
+        }
+
         unsigned int runTests() {
             unsigned int testsPassed = 0;
             for (size_t i = 0; i < test.size(); i++) {

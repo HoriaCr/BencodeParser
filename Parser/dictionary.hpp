@@ -15,8 +15,10 @@ class Dictionary : public BencodeType {
 
        Dictionary();
         
-       Dictionary(const Dictionary& other);
+       Dictionary(const Dictionary&);
 
+       Dictionary(const std::vector<std::pair<std::string,BencodeType*> >&);
+       
        ~Dictionary();
 
        void insert(const std::string&, BencodeType*); 
